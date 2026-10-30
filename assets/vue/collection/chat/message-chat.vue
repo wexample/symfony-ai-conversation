@@ -1,5 +1,5 @@
 <script>
-import AbstractEntityChat from '@wexample/symfony-design-system/components/collection/chat/abstract-entity-chat/abstract-entity-chat.vue';
+import AbstractAgentChat from '@wexample/symfony-design-system/components/collection/chat/abstract-agent-chat/abstract-agent-chat.vue';
 import ApiService from '@wexample/symfony-loader/js/Services/ApiService';
 import Message from '../../../Entity/Message';
 
@@ -20,7 +20,7 @@ const EVENT_MESSAGE_CREATED = 'message-created';
 const TYPE_TOOL = 'tool';
 
 export default {
-  extends: AbstractEntityChat,
+  extends: AbstractAgentChat,
 
   template: '#vue-template-wexample-symfony-ai-conversation-bundle-vue-collection-chat-message-chat',
 
