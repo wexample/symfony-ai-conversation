@@ -1,7 +1,10 @@
 domain: symfony-ai-conversation.wex
+git:
+  publication_strategy: main_push
 global:
   name: symfony-ai-conversation
   type: php-package
   version: 1.0.1
 wex:
-  version: 6.0.181
+  migration: 1
+  version: 6.0.179
