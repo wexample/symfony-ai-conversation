@@ -6,9 +6,9 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Uid\Uuid;
-use Wexample\SymfonyAiConversation\Api\Dto\Entity\Message\CreateMessageDto;
-use Wexample\SymfonyAiConversation\Api\Normalizer\Entity\Message\DefaultMessageNormalizer;
-use Wexample\SymfonyAiConversation\Entity\Message;
+use Wexample\SymfonyAiConversation\Api\Dto\Entity\ConversationMessage\CreateMessageDto;
+use Wexample\SymfonyAiConversation\Api\Normalizer\Entity\ConversationMessage\DefaultMessageNormalizer;
+use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
 use Wexample\SymfonyAiConversation\EventListener\AgentBackToolListener;
 use Wexample\SymfonyAiConversation\Repository\MessageRepository;
 use Wexample\SymfonyAiConversation\Repository\SessionRepository;
@@ -28,7 +28,7 @@ use Wexample\SymfonyAi\Service\AgentBackToolsService;
  * A thread is always asked for by its session: a message says nothing on its
  * own, and nothing here ever answers with the messages of the whole board.
  */
-#[Route(path: '_api/message/', name: 'api_message_')]
+#[Route(path: '_api/conversation-message/', name: 'api_conversation_message_')]
 class MessageController extends AbstractApiController
 {
     final public const string QUERY_OPTION_SESSION = 'session';
@@ -91,10 +91,10 @@ class MessageController extends AbstractApiController
                 $result['count'] = count($result['results']);
             }
 
-            $type = Message::TYPE_TOOL;
+            $type = ConversationMessage::TYPE_TOOL;
             $body = json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         } else {
-            $type = Message::TYPE_USER;
+            $type = ConversationMessage::TYPE_USER;
             $body = trim((string) $createMessageDto->body);
 
             if ('' === $body) {

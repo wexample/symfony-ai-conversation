@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyAiConversation\Repository;
 
 use Symfony\Component\Uid\Uuid;
-use Wexample\SymfonyAiConversation\Entity\Model;
+use Wexample\SymfonyAiConversation\Entity\ConversationModel;
 use Wexample\SymfonyAiConversation\Entity\Traits\Manipulator\ModelEntityManipulatorTrait;
 use Wexample\SymfonyHelpers\Repository\AbstractRepository;
 
@@ -24,8 +24,8 @@ class ModelRepository extends AbstractRepository
      * Nothing else is set: what the model is comes from the list it was read
      * from, so whoever read it fills the row from those values.
      */
-    public function createNewModel(Uuid $id): Model
+    public function createNewModel(Uuid $id): ConversationModel
     {
-        return new Model($id);
+        return new ConversationModel($id);
     }
 }

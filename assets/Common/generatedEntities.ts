@@ -1,13 +1,13 @@
-import Agent from '../Entity/Agent.js';
-import ClaudeSession from '../Entity/ClaudeSession.js';
-import Message from '../Entity/Message.js';
-import Model from '../Entity/Model.js';
-import Session from '../Entity/Session.js';
+import ConversationAgent from '../Entity/ConversationAgent.js';
+import ClaudeConversationSession from '../Entity/ClaudeConversationSession.js';
+import ConversationMessage from '../Entity/ConversationMessage.js';
+import ConversationModel from '../Entity/ConversationModel.js';
+import ConversationSession from '../Entity/ConversationSession.js';
 
 export default [
-  Agent,
-  ClaudeSession,
-  Message,
-  Model,
-  Session,
+  ConversationAgent,
+  ClaudeConversationSession,
+  ConversationMessage,
+  ConversationModel,
+  ConversationSession,
 ];

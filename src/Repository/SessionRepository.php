@@ -3,8 +3,8 @@
 namespace Wexample\SymfonyAiConversation\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use Wexample\SymfonyAiConversation\Entity\Agent;
-use Wexample\SymfonyAiConversation\Entity\Session;
+use Wexample\SymfonyAiConversation\Entity\ConversationAgent;
+use Wexample\SymfonyAiConversation\Entity\ConversationSession;
 use Wexample\SymfonyAiConversation\Entity\Traits\Manipulator\SessionEntityManipulatorTrait;
 use Wexample\SymfonyHelpers\Repository\AbstractRepository;
 
@@ -27,7 +27,7 @@ class SessionRepository extends AbstractRepository
      *
      * @return Session[]
      */
-    public function findByAgent(Agent $agent): array
+    public function findByAgent(ConversationAgent $agent): array
     {
         return $this->queryByAgent($agent)
             ->getQuery()
@@ -37,7 +37,7 @@ class SessionRepository extends AbstractRepository
     /**
      * The same, left open: what a listing reads a page at a time.
      */
-    public function queryByAgent(Agent $agent): QueryBuilder
+    public function queryByAgent(ConversationAgent $agent): QueryBuilder
     {
         return $this->queryLastSpokenFirst()
             ->where($this->queryField('agent').' = :agent')

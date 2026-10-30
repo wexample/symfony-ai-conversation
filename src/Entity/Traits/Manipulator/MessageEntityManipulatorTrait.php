@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyAiConversation\Entity\Traits\Manipulator;
 
-use Wexample\SymfonyAiConversation\Entity\Message;
+use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
 use Wexample\SymfonyHelpers\Entity\Traits\Manipulator\EntityManipulatorTrait;
 
 trait MessageEntityManipulatorTrait
@@ -11,6 +11,6 @@ trait MessageEntityManipulatorTrait
 
     public static function getEntityClassName(): string
     {
-        return Message::class;
+        return ConversationMessage::class;
     }
 }

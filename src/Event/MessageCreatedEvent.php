@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyAiConversation\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
-use Wexample\SymfonyAiConversation\Entity\Message;
+use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
 
 /**
  * Said once a turn has been written, for whoever knows how to answer it.
@@ -15,7 +15,7 @@ use Wexample\SymfonyAiConversation\Entity\Message;
 class MessageCreatedEvent extends Event
 {
     public function __construct(
-        public readonly Message $message,
+        public readonly ConversationMessage $message,
     ) {
     }
 }

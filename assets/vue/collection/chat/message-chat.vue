@@ -1,7 +1,7 @@
 <script>
 import AbstractAgentChat from '@wexample/symfony-design-system/components/collection/chat/abstract-agent-chat/abstract-agent-chat.vue';
 import ApiService from '@wexample/symfony-loader/js/Services/ApiService';
-import Message from '../../../Entity/Message';
+import ConversationMessage from '../../../Entity/ConversationMessage';
 
 const ICON_BY_TYPE = {
   assistant: 'ph:bold/robot',
@@ -35,7 +35,7 @@ export default {
 
   methods: {
     getEntityClass() {
-      return Message;
+      return ConversationMessage;
     },
 
     getEntitiesFetchParams() {
@@ -117,7 +117,7 @@ export default {
 
     async postToolResult(call, callId, results) {
       await this.app.getServiceOrFail(ApiService).getClient().post({
-        path: 'message/create',
+        path: 'conversation-message/create',
         options: {
           json: {
             session: this.sessionId,
@@ -146,7 +146,7 @@ export default {
     // Who spoke is not sent: the endpoint knows a turn arriving from here was
     // spoken by the operator, and refuses anything else in the payload.
     buildMessageEntity(content) {
-      return new Message({
+      return new ConversationMessage({
         session: this.sessionId,
         body: content
       });
@@ -154,7 +154,7 @@ export default {
 
     getLiveThread() {
       return {
-        entityName: 'session',
+        entityName: 'conversation-session',
         id: this.sessionId,
         event: EVENT_MESSAGE_CREATED
       };

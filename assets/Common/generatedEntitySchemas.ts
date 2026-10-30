@@ -1,8 +1,8 @@
-import agent from '../data/entity/agent.json';
-import claudeSession from '../data/entity/claude_session.json';
-import message from '../data/entity/message.json';
-import model from '../data/entity/model.json';
-import session from '../data/entity/session.json';
+import agent from '../data/entity/conversation_agent.json';
+import claudeSession from '../data/entity/claude_conversation_session.json';
+import message from '../data/entity/conversation_message.json';
+import model from '../data/entity/conversation_model.json';
+import session from '../data/entity/conversation_session.json';
 
 type EntitySchema = { name: string };
 

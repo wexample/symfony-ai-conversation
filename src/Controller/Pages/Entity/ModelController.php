@@ -5,7 +5,7 @@ namespace Wexample\SymfonyAiConversation\Controller\Pages\Entity;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Wexample\SymfonyAiConversation\Entity\Model;
+use Wexample\SymfonyAiConversation\Entity\ConversationModel;
 use Wexample\SymfonyAiConversation\Entity\Traits\Manipulator\ModelEntityManipulatorTrait;
 use Wexample\SymfonyAiConversation\Repository\ModelRepository;
 use Wexample\SymfonyAiConversation\Traits\SymfonyAiConversationBundleClassTrait;
@@ -42,7 +42,7 @@ class ModelController extends AbstractEntityPagesController
 
     #[Route(name: self::ROUTE_SHOW, path: '{id}/', options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     public function show(
-        #[MapEntity] Model $model
+        #[MapEntity] ConversationModel $model
     ): Response {
         return $this->renderPage(self::ROUTE_SHOW, [
             'model' => $model,

@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyAiConversation\Repository;
 
 use Symfony\Component\Uid\Uuid;
-use Wexample\SymfonyAiConversation\Entity\ClaudeSession;
+use Wexample\SymfonyAiConversation\Entity\ClaudeConversationSession;
 use Wexample\SymfonyAiConversation\Entity\Traits\Manipulator\ClaudeSessionEntityManipulatorTrait;
 
 /**
@@ -22,9 +22,9 @@ class ClaudeSessionRepository extends SessionRepository
      * Nothing else is set: the record says what the session is, so whoever
      * wrote it hydrates the row from the file rather than from memory.
      */
-    public function createNewClaudeSession(string $path): ClaudeSession
+    public function createNewClaudeSession(string $path): ClaudeConversationSession
     {
-        return new ClaudeSession($path);
+        return new ClaudeConversationSession($path);
     }
 
     /**
@@ -53,7 +53,7 @@ class ClaudeSessionRepository extends SessionRepository
     public function findByPathPrefixAndId(
         string $prefix,
         Uuid $id,
-    ): ?ClaudeSession {
+    ): ?ClaudeConversationSession {
         foreach ($this->findByPathPrefix($prefix) as $session) {
             if ($session->getId()->equals($id)) {
                 return $session;

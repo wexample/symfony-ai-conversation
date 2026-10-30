@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyAiConversation\Service;
 
 use DateTime;
-use Wexample\SymfonyAiConversation\Entity\Message;
+use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
 
 /**
  * Translates a message between a plain array and its record, both ways.
@@ -23,9 +23,9 @@ final readonly class MessageHydrator
      * @param array<string, mixed> $values
      */
     public function hydrate(
-        Message $message,
+        ConversationMessage $message,
         array $values
-    ): Message {
+    ): ConversationMessage {
         if (isset($values[self::KEY_TYPE])) {
             $message->setType($values[self::KEY_TYPE]);
         }
@@ -49,7 +49,7 @@ final readonly class MessageHydrator
     /**
      * @return array<string, mixed>
      */
-    public function dump(Message $message): array
+    public function dump(ConversationMessage $message): array
     {
         return [
             self::KEY_TYPE => $message->getType(),

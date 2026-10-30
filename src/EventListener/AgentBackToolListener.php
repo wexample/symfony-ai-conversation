@@ -9,7 +9,7 @@ use Doctrine\ORM\Events;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Service\ResetInterface;
 use Wexample\SymfonyAiConversation\Api\Controller\Entity\MessageController;
-use Wexample\SymfonyAiConversation\Entity\Message;
+use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
 use Wexample\SymfonyAiConversation\Repository\MessageRepository;
 use Wexample\SymfonyAi\Service\AgentBackToolsService;
 
@@ -31,7 +31,7 @@ use Wexample\SymfonyAi\Service\AgentBackToolsService;
 #[AsDoctrineListener(event: Events::postFlush)]
 class AgentBackToolListener implements ResetInterface
 {
-    /** @var Message[] */
+    /** @var ConversationMessage[] */
     private array $pending = [];
 
     public function __construct(
@@ -47,7 +47,7 @@ class AgentBackToolListener implements ResetInterface
     public function prePersist(PrePersistEventArgs $args): void
     {
         $message = $args->getObject();
-        $call = $message instanceof Message ? self::readCall($message) : null;
+        $call = $message instanceof ConversationMessage ? self::readCall($message) : null;
 
         if (! $call || $this->agentBackTools->isAnsweredHere($call) || ! $this->agentBackTools->handles($call)) {
             return;
@@ -63,7 +63,7 @@ class AgentBackToolListener implements ResetInterface
         $this->pending = [];
 
         /** @var MessageRepository $repository */
-        $repository = $args->getObjectManager()->getRepository(Message::class);
+        $repository = $args->getObjectManager()->getRepository(ConversationMessage::class);
 
         foreach ($pending as $message) {
             $call = self::readCall($message);
@@ -72,7 +72,7 @@ class AgentBackToolListener implements ResetInterface
 
             $repository->saveNewMessageAndPushEvent(
                 $message->getSession(),
-                Message::TYPE_TOOL,
+                ConversationMessage::TYPE_TOOL,
                 json_encode(
                     ['tool' => $call['name'], 'callId' => $callId, 'count' => count($results), 'results' => $results],
                     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
@@ -88,9 +88,9 @@ class AgentBackToolListener implements ResetInterface
      *
      * @return array<string, mixed>|null
      */
-    public static function readCall(Message $message): ?array
+    public static function readCall(ConversationMessage $message): ?array
     {
-        if (Message::TYPE_TOOL !== $message->getType()) {
+        if (ConversationMessage::TYPE_TOOL !== $message->getType()) {
             return null;
         }
 
@@ -103,7 +103,7 @@ class AgentBackToolListener implements ResetInterface
      * Whose conversation it is, for a session that says — the tools answer
      * for that account. One that does not runs them as the request stands.
      */
-    private static function ownerOf(Message $message): ?UserInterface
+    private static function ownerOf(ConversationMessage $message): ?UserInterface
     {
         $session = $message->getSession();
         $owner = method_exists($session, 'getUser') ? $session->getUser() : null;

@@ -1,8 +1,8 @@
 import AbstractApiRepository from '@wexample/js-api-entity/Common/AbstractApiRepository';
-import Model from '../Entity/Model.js';
+import ConversationModel from '../Entity/ConversationModel.js';
 
-export default class ModelRepository extends AbstractApiRepository<Model> {
+export default class ModelRepository extends AbstractApiRepository<ConversationModel> {
   static getEntityType() {
-    return Model;
+    return ConversationModel;
   }
 }

@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyAiConversation\Service;
 
-use Wexample\SymfonyAiConversation\Entity\Model;
+use Wexample\SymfonyAiConversation\Entity\ConversationModel;
 
 /**
  * Translates a model between a plain array and its record, both ways.
@@ -23,9 +23,9 @@ final readonly class ModelHydrator
      * @param array<string, mixed> $values
      */
     public function hydrate(
-        Model $model,
+        ConversationModel $model,
         array $values
-    ): Model {
+    ): ConversationModel {
         return $model
             ->setName($values[self::KEY_NAME])
             ->setMaker($values[self::KEY_MAKER])
@@ -37,7 +37,7 @@ final readonly class ModelHydrator
     /**
      * @return array<string, mixed>
      */
-    public function dump(Model $model): array
+    public function dump(ConversationModel $model): array
     {
         return [
             self::KEY_ID => $model->getId()->toRfc4122(),

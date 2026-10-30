@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyAiConversation\Api\Dto;
 
-use Wexample\SymfonyAiConversation\Entity\Agent;
+use Wexample\SymfonyAiConversation\Entity\ConversationAgent;
 use Wexample\SymfonyApi\Api\Dto\AbstractEntityDto;
 use Wexample\SymfonyHelpers\Entity\AbstractEntity;
 

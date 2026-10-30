@@ -5,8 +5,8 @@ namespace Wexample\SymfonyAiConversation\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Wexample\SymfonyAiConversation\Entity\Message;
-use Wexample\SymfonyAiConversation\Entity\Session;
+use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
+use Wexample\SymfonyAiConversation\Entity\ConversationSession;
 use Wexample\SymfonyAiConversation\Entity\Traits\Manipulator\MessageEntityManipulatorTrait;
 use Wexample\SymfonyAiConversation\Event\MessageCreatedEvent;
 use Wexample\SymfonyHelpers\Repository\AbstractRepository;
@@ -37,17 +37,17 @@ class MessageRepository extends AbstractRepository
      * transcript is about to dictate, and passing placeholders for it would be
      * writing something nobody said.
      */
-    public function createNewMessageFromTranscript(Session $session): Message
+    public function createNewMessageFromTranscript(ConversationSession $session): ConversationMessage
     {
-        return new Message($session);
+        return new ConversationMessage($session);
     }
 
     public function createNewMessage(
-        Session $session,
+        ConversationSession $session,
         string $type,
         string $body,
-    ): Message {
-        $message = new Message($session);
+    ): ConversationMessage {
+        $message = new ConversationMessage($session);
         $message->setType($type);
         $message->setBody($body);
         $message->setDateCreatedNow();
@@ -62,11 +62,11 @@ class MessageRepository extends AbstractRepository
      * listens to it reads the message back by its identity, from elsewhere.
      */
     public function saveNewMessageAndPushEvent(
-        Session $session,
+        ConversationSession $session,
         string $type,
         string $body,
         ?string $providerMessageIdentifier = null,
-    ): Message {
+    ): ConversationMessage {
         $message = $this->createNewMessage($session, $type, $body);
         // Unique: what names the message twice is written once, whoever
         // writes it second being refused by the database.
@@ -85,7 +85,7 @@ class MessageRepository extends AbstractRepository
      *
      * @return Message[]
      */
-    public function findBySession(Session $session): array
+    public function findBySession(ConversationSession $session): array
     {
         return $this->findBy(
             ['session' => $session],
@@ -96,7 +96,7 @@ class MessageRepository extends AbstractRepository
     /**
      * The same conversation, for a reader taking it a page at a time.
      */
-    public function queryBySessionOldestFirst(Session $session): QueryBuilder
+    public function queryBySessionOldestFirst(ConversationSession $session): QueryBuilder
     {
         // The date is kept to the second and one turn writes several messages
         // within one, so the identifier — given in creation order — settles
@@ -111,7 +111,7 @@ class MessageRepository extends AbstractRepository
      * The row a provider's own identifier points at, which is what says a
      * transcript read twice must not be stored twice.
      */
-    public function findOneByProviderMessageIdentifier(string $identifier): ?Message
+    public function findOneByProviderMessageIdentifier(string $identifier): ?ConversationMessage
     {
         return $this->findOneBy(['providerMessageIdentifier' => $identifier]);
     }
@@ -126,10 +126,10 @@ class MessageRepository extends AbstractRepository
      * conversation still describe the same turn.
      */
     public function findOneUnconfirmed(
-        Session $session,
+        ConversationSession $session,
         string $type,
         string $body,
-    ): ?Message {
+    ): ?ConversationMessage {
         return $this->findOneBy([
             'session' => $session,
             'type' => $type,

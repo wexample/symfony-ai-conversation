@@ -4,7 +4,7 @@ namespace Wexample\SymfonyAiConversation\Api\Controller\Entity;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
-use Wexample\SymfonyAiConversation\Api\Normalizer\Entity\Session\DefaultSessionNormalizer;
+use Wexample\SymfonyAiConversation\Api\Normalizer\Entity\ConversationSession\DefaultSessionNormalizer;
 use Wexample\SymfonyAiConversation\Repository\AgentRepository;
 use Wexample\SymfonyAiConversation\Repository\SessionRepository;
 use Wexample\SymfonyApi\Api\Attribute\QueryOption\LengthQueryOption;
@@ -20,7 +20,7 @@ use Wexample\SymfonyHelpers\Controller\AbstractController;
  * A listing is always asked for by the agent that held the conversations: the
  * board has no page showing everybody's threads at once, and this answers none.
  */
-#[Route(path: '_api/session/', name: 'api_session_')]
+#[Route(path: '_api/conversation-session/', name: 'api_conversation_session_')]
 class SessionController extends AbstractApiController
 {
     final public const string QUERY_OPTION_AGENT = 'agent';

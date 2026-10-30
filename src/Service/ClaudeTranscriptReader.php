@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyAiConversation\Service;
 
 use Generator;
-use Wexample\SymfonyAiConversation\Entity\Message;
+use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
 
 /**
  * Turns a Claude transcript into the plain arrays a message is hydrated from.
@@ -17,9 +17,9 @@ final readonly class ClaudeTranscriptReader
 {
     /** The line types that carry something said. */
     public const CARRIED_TYPES = [
-        Message::TYPE_ASSISTANT,
-        Message::TYPE_SYSTEM,
-        Message::TYPE_USER,
+        ConversationMessage::TYPE_ASSISTANT,
+        ConversationMessage::TYPE_SYSTEM,
+        ConversationMessage::TYPE_USER,
     ];
 
     /**
@@ -108,7 +108,7 @@ final readonly class ClaudeTranscriptReader
         $kinds = array_column($content, 'type');
 
         return in_array('tool_use', $kinds, true) && ! in_array('text', $kinds, true)
-            ? Message::TYPE_TOOL
+            ? ConversationMessage::TYPE_TOOL
             : $line['type'];
     }
 

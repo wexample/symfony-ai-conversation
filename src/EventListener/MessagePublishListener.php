@@ -7,8 +7,8 @@ use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Contracts\Service\ResetInterface;
-use Wexample\SymfonyAiConversation\Api\Normalizer\Entity\Message\DefaultMessageNormalizer;
-use Wexample\SymfonyAiConversation\Entity\Message;
+use Wexample\SymfonyAiConversation\Api\Normalizer\Entity\ConversationMessage\DefaultMessageNormalizer;
+use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
 use Wexample\SymfonyLive\Enum\LiveTopicAction;
 use Wexample\SymfonyLive\Helper\LiveTopicHelper;
 use Wexample\SymfonyLive\Service\LivePublisherService;
@@ -31,7 +31,7 @@ class MessagePublishListener implements ResetInterface
 {
     final public const EVENT_MESSAGE_CREATED = 'message-created';
 
-    /** @var Message[] */
+    /** @var ConversationMessage[] */
     private array $pending = [];
 
     public function __construct(
@@ -53,7 +53,7 @@ class MessagePublishListener implements ResetInterface
     {
         $entity = $args->getObject();
 
-        if ($entity instanceof Message) {
+        if ($entity instanceof ConversationMessage) {
             $this->pending[] = $entity;
         }
     }

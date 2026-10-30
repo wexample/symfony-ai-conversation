@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyAiConversation\Repository;
 
 use Symfony\Component\Uid\Uuid;
-use Wexample\SymfonyAiConversation\Entity\Agent;
+use Wexample\SymfonyAiConversation\Entity\ConversationAgent;
 use Wexample\SymfonyAiConversation\Entity\Traits\Manipulator\AgentEntityManipulatorTrait;
 use Wexample\SymfonyHelpers\Repository\AbstractRepository;
 
@@ -24,18 +24,18 @@ class AgentRepository extends AbstractRepository
      * Nothing else is set: the file owns what it says, so whoever read it
      * hydrates the row from those values rather than from memory.
      */
-    public function createNewAgent(string $path): Agent
+    public function createNewAgent(string $path): ConversationAgent
     {
-        return new Agent($path);
+        return new ConversationAgent($path);
     }
 
     /**
      * An agent a package ships, which wex lists under that identity and no
      * file declares. Hydrated, as the other, from what wex says of it.
      */
-    public function createNewAgentFromWex(Uuid $id): Agent
+    public function createNewAgentFromWex(Uuid $id): ConversationAgent
     {
-        return new Agent(id: $id);
+        return new ConversationAgent(id: $id);
     }
 
     /**
@@ -76,7 +76,7 @@ class AgentRepository extends AbstractRepository
     public function findByPathPrefixAndId(
         string $prefix,
         Uuid $id,
-    ): ?Agent {
+    ): ?ConversationAgent {
         foreach ($this->findByPathPrefix($prefix) as $agent) {
             if ($agent->getId()->equals($id)) {
                 return $agent;
@@ -93,9 +93,9 @@ class AgentRepository extends AbstractRepository
     public function findReachableFrom(
         string $prefix,
         Uuid $id,
-    ): ?Agent {
+    ): ?ConversationAgent {
         $agent = $this->findByPathPrefixAndId($prefix, $id);
-        if ($agent instanceof Agent) {
+        if ($agent instanceof ConversationAgent) {
             return $agent;
         }
 

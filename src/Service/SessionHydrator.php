@@ -5,9 +5,9 @@ namespace Wexample\SymfonyAiConversation\Service;
 use DateTime;
 use DateTimeInterface;
 use Symfony\Component\Uid\Uuid;
-use Wexample\SymfonyAiConversation\Entity\Agent;
-use Wexample\SymfonyAiConversation\Entity\ClaudeSession;
-use Wexample\SymfonyAiConversation\Entity\Model;
+use Wexample\SymfonyAiConversation\Entity\ConversationAgent;
+use Wexample\SymfonyAiConversation\Entity\ClaudeConversationSession;
+use Wexample\SymfonyAiConversation\Entity\ConversationModel;
 use Wexample\SymfonyAiConversation\Repository\AgentRepository;
 use Wexample\SymfonyAiConversation\Repository\ModelRepository;
 
@@ -39,9 +39,9 @@ final readonly class SessionHydrator
      * @param array<string, mixed> $values
      */
     public function hydrate(
-        ClaudeSession $session,
+        ClaudeConversationSession $session,
         array $values
-    ): ClaudeSession {
+    ): ClaudeConversationSession {
         return $session
             ->setName($values[self::KEY_NAME] ?? null)
             ->setAgentName($values[self::KEY_AGENT_NAME] ?? '')
@@ -56,7 +56,7 @@ final readonly class SessionHydrator
     /**
      * @return array<string, mixed>
      */
-    public function dump(ClaudeSession $session): array
+    public function dump(ClaudeConversationSession $session): array
     {
         return [
             self::KEY_NAME => $session->getName(),
@@ -74,7 +74,7 @@ final readonly class SessionHydrator
      * The agent that ran the conversation, or null: an agent a package ships is
      * code, it has no record, and only its name survives.
      */
-    private function agent(?string $id): ?Agent
+    private function agent(?string $id): ?ConversationAgent
     {
         return $id && Uuid::isValid($id)
             ? $this->agentRepository->find(Uuid::fromString($id))
@@ -85,7 +85,7 @@ final readonly class SessionHydrator
      * The model the conversation was pinned to, null when the agent's own still
      * decides or when the catalogue holds no such model.
      */
-    private function model(?string $name): ?Model
+    private function model(?string $name): ?ConversationModel
     {
         return $name
             ? $this->modelRepository->findOneBy([ModelHydrator::KEY_NAME => $name])

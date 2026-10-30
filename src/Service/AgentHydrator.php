@@ -2,8 +2,8 @@
 
 namespace Wexample\SymfonyAiConversation\Service;
 
-use Wexample\SymfonyAiConversation\Entity\Agent;
-use Wexample\SymfonyAiConversation\Entity\Model;
+use Wexample\SymfonyAiConversation\Entity\ConversationAgent;
+use Wexample\SymfonyAiConversation\Entity\ConversationModel;
 use Wexample\SymfonyAiConversation\Repository\ModelRepository;
 
 /**
@@ -28,9 +28,9 @@ final readonly class AgentHydrator
      * @param array<string, mixed> $values
      */
     public function hydrate(
-        Agent $agent,
+        ConversationAgent $agent,
         array $values
-    ): Agent {
+    ): ConversationAgent {
         return $agent
             ->setName($values[self::KEY_NAME] ?? null)
             ->setDescription($values[self::KEY_DESCRIPTION] ?? null)
@@ -41,7 +41,7 @@ final readonly class AgentHydrator
     /**
      * @return array<string, mixed>
      */
-    public function dump(Agent $agent): array
+    public function dump(ConversationAgent $agent): array
     {
         return [
             self::KEY_NAME => $agent->getName(),
@@ -55,7 +55,7 @@ final readonly class AgentHydrator
      * The model that name points at, or null when the catalogue holds no such
      * model: an agent naming one that is gone is still an agent.
      */
-    private function model(?string $name): ?Model
+    private function model(?string $name): ?ConversationModel
     {
         return $name
             ? $this->modelRepository->findOneBy([ModelHydrator::KEY_NAME => $name])
