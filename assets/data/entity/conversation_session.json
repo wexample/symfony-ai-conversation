@@ -1,5 +1,5 @@
 {
-    "name": "conversation-session",
+    "name": "conversation_session",
     "type": "class",
     "description": "One conversation held in the app, whatever engine holds it.\nEverything about the conversation except the messages: who ran it, what it\nwas called, where it got to. What ties it to its engine — a transcript on\ndisk, a session on a remote server — is the engine's own and lives in the\nsubclass of that engine, each in a table of its own joined to this one.\nThe root of the hierarchy is what the api, the live topics and the browser\nknow: every kind is a `session` to them, told apart by `engine`, which the\nsubclasses name themselves after — `ClaudeConversationSession` is `claude`.",
     "properties": [
@@ -8,7 +8,7 @@
             "type": "Symfony\\Component\\Uid\\Uuid"
         },
         {
-            "name": "conversation-agent",
+            "name": "agent",
             "type": "ConversationAgent",
             "nullable": true,
             "default": null
@@ -24,7 +24,7 @@
             "default": null
         },
         {
-            "name": "conversation-model",
+            "name": "model",
             "type": "ConversationModel",
             "nullable": true,
             "default": null
@@ -131,7 +131,7 @@
             "parameters": [
                 {
                     "type": "ConversationAgent",
-                    "name": "conversation-agent"
+                    "name": "agent"
                 }
             ],
             "return": {
@@ -191,7 +191,7 @@
             "parameters": [
                 {
                     "type": "ConversationModel",
-                    "name": "conversation-model"
+                    "name": "model"
                 }
             ],
             "return": {
@@ -261,6 +261,6 @@
     ],
     "discriminator": {
         "property": "engine",
-        "value": "session"
+        "value": "conversation_session"
     }
 }

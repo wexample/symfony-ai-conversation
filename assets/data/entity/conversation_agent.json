@@ -1,5 +1,5 @@
 {
-    "name": "conversation-agent",
+    "name": "conversation_agent",
     "type": "class",
     "description": "An agent, projected into a record: one an app declares, or one wex ships.\nThe source owns what it says: this record is rebuilt from it and never\nwritten back to it. An app's agent is declared in a file named by its own\nidentity — `<uuid>.json` — so the record takes that uuid, an agent renamed\nor moved stays the same agent, and a declaration that is gone leaves no\nrecord behind. An agent a package ships has no file: wex lists it, with an\nidentity that follows from its qualified name, and it is read only.",
     "properties": [
@@ -32,7 +32,7 @@
             "default": null
         },
         {
-            "name": "conversation-model",
+            "name": "model",
             "type": "ConversationModel",
             "nullable": true,
             "default": null
@@ -230,7 +230,7 @@
             "parameters": [
                 {
                     "type": "ConversationModel",
-                    "name": "conversation-model"
+                    "name": "model"
                 }
             ],
             "return": {

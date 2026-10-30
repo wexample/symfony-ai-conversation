@@ -1,11 +1,11 @@
 {
-    "name": "claude-conversation-session",
+    "name": "claude_conversation_session",
     "type": "class",
     "extends": "ConversationSession",
     "description": "A conversation held by Claude, projected from its record file.\nThe transcript belongs to the engine and stays out — `sdkId` is the thread\nback to it. Like an agent, the record is named by its own identity —\n`<uuid>.yml` — so the row takes that uuid and a file that is gone leaves no\nrow behind.",
     "properties": [
         {
-            "name": "conversation-agent",
+            "name": "agent",
             "type": "Wexample\\SymfonyAiConversation\\Entity\\ConversationAgent",
             "nullable": true,
             "default": null
@@ -21,7 +21,7 @@
             "default": null
         },
         {
-            "name": "conversation-model",
+            "name": "model",
             "type": "Wexample\\SymfonyAiConversation\\Entity\\ConversationModel",
             "nullable": true,
             "default": null
@@ -77,7 +77,7 @@
             "parameters": [
                 {
                     "type": "Wexample\\SymfonyAiConversation\\Entity\\ConversationAgent",
-                    "name": "conversation-agent"
+                    "name": "agent"
                 }
             ],
             "return": {
@@ -137,7 +137,7 @@
             "parameters": [
                 {
                     "type": "Wexample\\SymfonyAiConversation\\Entity\\ConversationModel",
-                    "name": "conversation-model"
+                    "name": "model"
                 }
             ],
             "return": {

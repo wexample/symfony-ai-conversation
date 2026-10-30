@@ -1,5 +1,5 @@
 {
-    "name": "conversation-message",
+    "name": "conversation_message",
     "type": "class",
     "description": "One turn of a conversation: who spoke, what was said, when.\nOnly what every engine has. A provider's own transcript says a great deal\nmore — Claude's holds titles, queue operations and a parent link per line —\nand none of it survives a change of provider, so none of it is stored here.\n`providerMessageIdentifier` is the one thread back to the original.",
     "properties": [
@@ -26,7 +26,7 @@
             "type": "Symfony\\Component\\Uid\\Uuid"
         },
         {
-            "name": "conversation-session",
+            "name": "session",
             "type": "ConversationSession"
         },
         {
@@ -220,7 +220,7 @@
             "parameters": [
                 {
                     "type": "ConversationSession",
-                    "name": "conversation-session"
+                    "name": "session"
                 }
             ]
         },
