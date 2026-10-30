@@ -3,7 +3,7 @@ import type { ApiEntitySchema } from '@wexample/js-api-entity/Common/AbstractApi
 import schema from '../data/entity/conversation_session.json';
 
 export default class ConversationSession extends AbstractApiEntity {
-  static readonly entityName = 'conversation-session';
+  static readonly entityName = 'conversationSession';
 
   static retrieveEntitySchema(): ApiEntitySchema {
     return schema;
