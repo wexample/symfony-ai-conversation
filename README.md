@@ -1,5 +1,7 @@
 # symfony-ai-conversation
 
-Version: 1.0.1
+Version: 5.0.3
+
+Agents and models as Symfony entities
 
 ## Table of Contents
