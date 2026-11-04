@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyAiConversation\Api\Dto;
 
-use Wexample\SymfonyAiConversation\Entity\ClaudeConversationSession;
 use Wexample\SymfonyHelpers\Entity\AbstractEntity;
 
 /**

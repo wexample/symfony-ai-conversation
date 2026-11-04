@@ -6,6 +6,7 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Uid\Uuid;
+use Wexample\SymfonyAi\Service\AgentBackToolsService;
 use Wexample\SymfonyAiConversation\Api\Dto\Entity\ConversationMessage\CreateMessageDto;
 use Wexample\SymfonyAiConversation\Api\Normalizer\Entity\ConversationMessage\DefaultMessageNormalizer;
 use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
@@ -20,7 +21,6 @@ use Wexample\SymfonyApi\Api\Class\ApiResponse;
 use Wexample\SymfonyApi\Api\Controller\AbstractApiController;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyHelpers\Voter\AbstractEntityVoter;
-use Wexample\SymfonyAi\Service\AgentBackToolsService;
 
 /**
  * What the conversation is read through.

@@ -4,7 +4,6 @@ namespace Wexample\SymfonyAiConversation\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Wexample\SymfonyAiConversation\Entity\ConversationAgent;
-use Wexample\SymfonyAiConversation\Entity\ConversationSession;
 use Wexample\SymfonyAiConversation\Entity\Traits\Manipulator\SessionEntityManipulatorTrait;
 use Wexample\SymfonyHelpers\Repository\AbstractRepository;
 

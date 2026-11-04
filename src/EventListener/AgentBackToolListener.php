@@ -8,10 +8,10 @@ use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Service\ResetInterface;
+use Wexample\SymfonyAi\Service\AgentBackToolsService;
 use Wexample\SymfonyAiConversation\Api\Controller\Entity\MessageController;
 use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
 use Wexample\SymfonyAiConversation\Repository\MessageRepository;
-use Wexample\SymfonyAi\Service\AgentBackToolsService;
 
 /**
  * The calls an agent makes to the tools of the server, answered here before
