@@ -7,30 +7,5 @@
     "psr-4": {
       "Wexample\\SymfonyAiConversation\\": "src/"
     }
-  },
-  "description": "Conversations with agents held in the application: sessions, messages, agents and models as entities, their pages and api",
-  "authors": [
-    {
-      "name": "weeger",
-      "email": "romain.weeger@wexample.com"
-    }
-  ],
-  "require": {
-    "php": ">=8.5",
-    "doctrine/orm": "^3.0",
-    "symfony/uid": ">=6.2",
-    "wexample/php-pseudocode": ">=3.0.0",
-    "wexample/symfony-ai": ">=5.0.3",
-    "wexample/symfony-api": ">=16.0.0",
-    "wexample/symfony-design-system": ">=41.0.0",
-    "wexample/symfony-forms": ">=14.0.2",
-    "wexample/symfony-helpers": ">=19.1.0",
-    "wexample/symfony-live": ">=5.8.0",
-    "wexample/symfony-pseudocode": ">=4.0.2"
-  },
-  "extra": {
-    "install": {
-      "bundle_env": "all"
-    }
   }
 }
