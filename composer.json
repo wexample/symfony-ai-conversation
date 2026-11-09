@@ -1,6 +1,6 @@
 {
   "name": "wexample/symfony-ai-conversation",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "type": "library",
   "license": "MIT",
   "autoload": {
@@ -20,10 +20,10 @@
     "doctrine/orm": "^3.0",
     "symfony/uid": ">=6.2",
     "wexample/php-pseudocode": ">=3.0.0",
-    "wexample/symfony-ai": ">=5.0.3",
-    "wexample/symfony-api": ">=16.0.0",
-    "wexample/symfony-design-system": ">=41.0.0",
-    "wexample/symfony-forms": ">=14.0.2",
+    "wexample/symfony-ai": ">=6.0.0",
+    "wexample/symfony-api": ">=17.0.0",
+    "wexample/symfony-design-system": ">=43.0.0",
+    "wexample/symfony-forms": ">=16.0.0",
     "wexample/symfony-helpers": ">=19.1.0",
     "wexample/symfony-live": ">=5.8.0",
     "wexample/symfony-pseudocode": ">=4.0.2"
