@@ -1,6 +1,6 @@
 en:
   field:
-    name:
+    title:
       label: Name
       help: What to call this conversation, so it can be told from the others.
 

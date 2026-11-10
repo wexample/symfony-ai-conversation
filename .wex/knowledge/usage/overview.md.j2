@@ -1,21 +1,20 @@
-# Conversations held in the application
+# Conversations with agents
 
-`symfony-ai-conversation` keeps the conversations an application holds with agents: a `ConversationSession` per thread, its `ConversationMessage`s, the `ConversationAgent`s and `ConversationModel`s they run on. An engine adds its own kind of session under the same root — `ClaudeConversationSession` here, `SyrtisConversationSession` in `syrtis/symfony-client` —, named so that the discriminator stays the engine's word: `claude`, `syrtis`.
+`symfony-ai-conversation` is what a conversation of `wexample/symfony-conversation` has when an agent takes part in it: an `AgentConversation` — which agent, the model it was pinned to, how far it got —, the agent as a participant of its own (`AgentConversationParticipant`), the `ConversationAgent`s and `ConversationModel`s, Claude's transcripts, the tools an agent calls (`wexample/symfony-ai`). The conversation, its people, its lines and who may read them are symfony-conversation's.
 
-## Names that stay out of the application's way
-
-The entities are named after the package, and so is everything the stack derives from a name:
+An engine adds its own kind under `AgentConversation`: `ClaudeConversation` here, `SyrtisConversation` in `syrtis/symfony-client` — `claude`, `syrtis` in the conversation's `kind`.
 
 | | |
 |---|---|
-| Tables | `ai_conversation_session`, `ai_conversation_message`, `ai_conversation_agent`, `ai_conversation_model`, `ai_conversation_claude_session` — and `ai_conversation_syrtis_session` in the Syrtis client |
-| Api | `/_api/conversation-message/` (`api_conversation_message_*`), `/_api/conversation-session/` (`api_conversation_session_*`) |
-| Live topic | `entity/conversation-session/event/{id}` |
-| Browser entities | `conversation-message`, `conversation-session`… (`assets/Entity/`), their repositories registered by the application's api client |
+| Tables | `agent_conversation`, `conversation_agent_participant`, `claude_conversation`; `ai_conversation_agent`, `ai_conversation_model` |
+| Api | `/_api/agent-conversation/tool-result` (`api_agent_conversation_tool_result`): what the page answers to a tool call, once per call |
+| Browser entities | `AgentConversation`, `ClaudeConversation`, `ConversationAgent`, `ConversationModel` (`assets/Entity/`) |
 
-An application that already has a `session`, a `message` or a `model` of its own — the Syrtis manager — can thus hold conversations beside them. An application coming from the former names (`session`, `message`…) renames its tables; the rows and the discriminator values stay (portfolio, `Version20261030120000`).
+## Who speaks
+
+A line of an engine says who said it — `speaker`: `agent`, `user`, none — and is written by its author (`AgentConversationService::authorFor`): the agent's participant, the person holding the conversation (the first who joined), nobody for the conversation's own line. `MessageHydrator` and `ClaudeTranscriptReader` carry `speaker` both ways.
 
 ## What runs on it
 
-- The chat of a conversation, `vue/collection/chat/message-chat`, stands on the design system's `abstract-agent-chat`: the agent's tool calls run in the page, their answers come back through `MessageController::create`, the server's tools are answered by `AgentBackToolListener` (`wexample/symfony-ai`).
-- Whoever answers a turn listens to `MessageCreatedEvent`: the Syrtis client sends the message on and brings the agent's answer back; a transcript reader fills the thread from Claude's files.
+- The chat, `vue/collection/chat/message-chat`, on the design system's `abstract-agent-chat`: the agent's tool calls run in the page and are answered through `ToolResultController`; the server's tools are answered by `AgentBackToolListener`, as the person holding the conversation.
+- Whoever answers a line listens to symfony-conversation's `MessageCreatedEvent`: the Syrtis client sends the person's line on and writes the agent's answer back.

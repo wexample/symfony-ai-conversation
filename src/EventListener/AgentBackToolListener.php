@@ -6,12 +6,13 @@ use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Events;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Service\ResetInterface;
 use Wexample\SymfonyAi\Service\AgentBackToolsService;
-use Wexample\SymfonyAiConversation\Api\Controller\Entity\MessageController;
-use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
-use Wexample\SymfonyAiConversation\Repository\MessageRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Wexample\SymfonyAiConversation\Api\Controller\ToolResultController;
+use Wexample\SymfonyAiConversation\Service\AgentConversationService;
+use Wexample\SymfonyConversation\Entity\ConversationMessage;
+use Wexample\SymfonyConversation\Repository\MessageRepository;
 
 /**
  * The calls an agent makes to the tools of the server, answered here before
@@ -21,8 +22,9 @@ use Wexample\SymfonyAiConversation\Repository\MessageRepository;
  * a tool message; when it calls a tool of the server (AgentBackToolsService),
  * the call is marked as answered here before it is saved, so the page shows it
  * and does not run it, and once saved it is run as the conversation's owner
- * and answered as the page answers: a tool message naming the call, which the
- * engine's listener sends on (MessageCreatedEvent).
+ * and answered as the page answers — a tool message naming the call, written
+ * by the person holding the conversation —, which the engine's listener sends
+ * on (MessageCreatedEvent).
  *
  * Run after the flush, as a request of its own would: a call announced and
  * then rolled back is not one to answer.
@@ -36,6 +38,7 @@ class AgentBackToolListener implements ResetInterface
 
     public function __construct(
         private readonly AgentBackToolsService $agentBackTools,
+        private readonly AgentConversationService $agentConversations,
     ) {
     }
 
@@ -68,16 +71,20 @@ class AgentBackToolListener implements ResetInterface
         foreach ($pending as $message) {
             $call = self::readCall($message);
             $callId = (string) $message->getId();
-            $results = $this->agentBackTools->answer($call, self::ownerOf($message));
+            $conversation = $message->getConversation();
+            $holder = $this->agentConversations->holderOf($conversation);
+            $owner = $holder?->getUser();
+            $results = $this->agentBackTools->answer($call, $owner instanceof UserInterface ? $owner : null);
 
             $repository->saveNewMessageAndPushEvent(
-                $message->getSession(),
-                ConversationMessage::TYPE_TOOL,
-                json_encode(
+                conversation: $conversation,
+                type: ConversationMessage::TYPE_TOOL,
+                body: json_encode(
                     ['tool' => $call['name'], 'callId' => $callId, 'count' => count($results), 'results' => $results],
                     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
                 ),
-                MessageController::TOOL_RESULT_PREFIX.$callId,
+                author: $holder,
+                providerMessageIdentifier: ToolResultController::TOOL_RESULT_PREFIX.$callId,
             );
         }
     }
@@ -97,17 +104,5 @@ class AgentBackToolListener implements ResetInterface
         $body = json_decode((string) $message->getBody(), true);
 
         return is_array($body) && is_string($body['name'] ?? null) && ! isset($body['callId']) ? $body : null;
-    }
-
-    /**
-     * Whose conversation it is, for a session that says — the tools answer
-     * for that account. One that does not runs them as the request stands.
-     */
-    private static function ownerOf(ConversationMessage $message): ?UserInterface
-    {
-        $session = $message->getSession();
-        $owner = method_exists($session, 'getUser') ? $session->getUser() : null;
-
-        return $owner instanceof UserInterface ? $owner : null;
     }
 }

@@ -4,7 +4,7 @@ namespace Wexample\SymfonyAiConversation\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Wexample\SymfonyAiConversation\Entity\ConversationSession;
+use Wexample\SymfonyAiConversation\Entity\AgentConversation;
 use Wexample\SymfonyForms\Form\AbstractForm;
 use Wexample\SymfonyForms\Form\Type\TextInputType;
 
@@ -15,7 +15,7 @@ class SessionForm extends AbstractForm
         parent::configureOptions($resolver);
 
         $resolver->setDefaults([
-            'data_class' => ConversationSession::class,
+            'data_class' => AgentConversation::class,
         ]);
     }
 
@@ -28,7 +28,7 @@ class SessionForm extends AbstractForm
         // rewritten by whoever runs the next turn.
         $builder
             ->add(
-                'name',
+                'title',
                 TextInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,

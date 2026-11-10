@@ -5,7 +5,7 @@ namespace Wexample\SymfonyAiConversation\Service;
 use DateTime;
 use DateTimeInterface;
 use Symfony\Component\Uid\Uuid;
-use Wexample\SymfonyAiConversation\Entity\ClaudeConversationSession;
+use Wexample\SymfonyAiConversation\Entity\ClaudeConversation;
 use Wexample\SymfonyAiConversation\Entity\ConversationAgent;
 use Wexample\SymfonyAiConversation\Entity\ConversationModel;
 use Wexample\SymfonyAiConversation\Repository\AgentRepository;
@@ -39,16 +39,20 @@ final readonly class SessionHydrator
      * @param array<string, mixed> $values
      */
     public function hydrate(
-        ClaudeConversationSession $session,
+        ClaudeConversation $session,
         array $values
-    ): ClaudeConversationSession {
+    ): ClaudeConversation {
+        // A record saying nothing of when it opened keeps the moment it was read.
+        if ($dateCreated = $this->date($values[self::KEY_DATE_CREATED] ?? null)) {
+            $session->setDateCreated($dateCreated);
+        }
+
         return $session
-            ->setName($values[self::KEY_NAME] ?? null)
+            ->setTitle($values[self::KEY_NAME] ?? null)
             ->setAgentName($values[self::KEY_AGENT_NAME] ?? '')
             ->setAgent($this->agent($values[self::KEY_AGENT_ID] ?? null))
             ->setModel($this->model($values[self::KEY_MODEL] ?? null))
             ->setTurnCount((int) ($values[self::KEY_TURN_COUNT] ?? 0))
-            ->setDateCreated($this->date($values[self::KEY_DATE_CREATED] ?? null))
             ->setDateLastMessage($this->date($values[self::KEY_DATE_LAST_MESSAGE] ?? null))
             ->setSdkId($values[self::KEY_SDK_ID] ?? null);
     }
@@ -56,10 +60,10 @@ final readonly class SessionHydrator
     /**
      * @return array<string, mixed>
      */
-    public function dump(ClaudeConversationSession $session): array
+    public function dump(ClaudeConversation $session): array
     {
         return [
-            self::KEY_NAME => $session->getName(),
+            self::KEY_NAME => $session->getTitle(),
             self::KEY_AGENT_NAME => $session->getAgentName(),
             self::KEY_AGENT_ID => $session->getAgent() ? (string) $session->getAgent()->getId() : null,
             self::KEY_MODEL => $session->getModel()?->getName(),

@@ -6,7 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use Wexample\Pseudocode\Attribute\PseudocodeExport;
-use Wexample\SymfonyAiConversation\Repository\ClaudeSessionRepository;
+use Wexample\SymfonyAiConversation\Repository\ClaudeConversationRepository;
 
 /**
  * A conversation held by Claude, projected from its record file.
@@ -17,9 +17,9 @@ use Wexample\SymfonyAiConversation\Repository\ClaudeSessionRepository;
  * row behind.
  */
 #[PseudocodeExport(inherited: true)]
-#[ORM\Entity(repositoryClass: ClaudeSessionRepository::class)]
-#[ORM\Table(name: 'ai_conversation_claude_session')]
-class ClaudeConversationSession extends ConversationSession
+#[ORM\Entity(repositoryClass: ClaudeConversationRepository::class)]
+#[ORM\Table(name: 'claude_conversation')]
+class ClaudeConversation extends AgentConversation
 {
     /** The record the session is read from, which is what says the app it belongs to. */
     #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
@@ -54,7 +54,7 @@ class ClaudeConversationSession extends ConversationSession
         return $this->sdkId;
     }
 
-    public function setSdkId(?string $sdkId): self
+    public function setSdkId(?string $sdkId): static
     {
         $this->sdkId = $sdkId;
 

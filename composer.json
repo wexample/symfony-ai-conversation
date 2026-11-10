@@ -8,7 +8,7 @@
       "Wexample\\SymfonyAiConversation\\": "src/"
     }
   },
-  "description": "Conversations with agents held in the application: sessions, messages, agents and models as entities, their pages and api",
+  "description": "Conversations with agents, on symfony-conversation: the agent taking part, agents and models as entities, Claude's transcripts, the tools an agent calls",
   "authors": [
     {
       "name": "weeger",
@@ -22,6 +22,7 @@
     "wexample/php-pseudocode": ">=3.1.0",
     "wexample/symfony-ai": ">=6.0.0",
     "wexample/symfony-api": ">=17.0.0",
+    "wexample/symfony-conversation": ">=1.0.1",
     "wexample/symfony-design-system": ">=43.0.0",
     "wexample/symfony-forms": ">=16.0.0",
     "wexample/symfony-helpers": ">=19.1.0",

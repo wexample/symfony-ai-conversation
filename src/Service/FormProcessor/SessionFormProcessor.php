@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Wexample\SymfonyAiConversation\Entity\ConversationSession;
+use Wexample\SymfonyAiConversation\Entity\AgentConversation;
 use Wexample\SymfonyForms\Service\FormProcessor\AbstractFormProcessor;
 
 /**
@@ -31,7 +31,7 @@ class SessionFormProcessor extends AbstractFormProcessor
 
     public function onValid(FormInterface $form): void
     {
-        /** @var ConversationSession $session */
+        /** @var AgentConversation $session */
         $session = $form->getData();
 
         $this->save($session);
@@ -43,7 +43,7 @@ class SessionFormProcessor extends AbstractFormProcessor
     /**
      * Where an edited session goes. The one thing an application changes here.
      */
-    protected function save(ConversationSession $session): void
+    protected function save(AgentConversation $session): void
     {
         $this->entityManager->persist($session);
         $this->entityManager->flush();

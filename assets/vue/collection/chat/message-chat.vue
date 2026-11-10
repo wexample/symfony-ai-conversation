@@ -1,17 +1,21 @@
 <script>
 import AbstractAgentChat from '@wexample/symfony-design-system/components/collection/chat/abstract-agent-chat/abstract-agent-chat.vue';
 import ApiService from '@wexample/symfony-loader/js/Services/ApiService';
-import ConversationMessage from '../../../Entity/ConversationMessage';
+import ConversationMessage from '@wexample/symfony-conversation/Entity/ConversationMessage';
 
 const ICON_BY_TYPE = {
-  assistant: 'ph:bold/robot',
   error: 'ph:bold/warning-circle',
   system: 'ph:bold/gear',
-  tool: 'ph:bold/wrench',
+  tool: 'ph:bold/wrench'
+};
+
+// Words, by who wrote them: the agent, or the person talking to it.
+const ICON_BY_SPEAKER = {
+  agent: 'ph:bold/robot',
   user: 'ph:bold/user'
 };
 
-// What the server publishes on the session's topic when a turn is written.
+// What the server publishes on the conversation's topic when a line is written.
 const EVENT_MESSAGE_CREATED = 'message-created';
 
 // A tool turn is one of two things, both json in its body: what the agent
@@ -27,7 +31,7 @@ export default {
   props: {
     // A thread is the thread of one conversation, and which one is decided by
     // whoever places the component.
-    sessionId: {
+    conversationId: {
       type: String,
       required: true
     }
@@ -41,7 +45,7 @@ export default {
     getEntitiesFetchParams() {
       return {
         query: {
-          session: this.sessionId
+          conversation: this.conversationId
         }
       };
     },
@@ -60,10 +64,18 @@ export default {
       return true;
     },
 
-    // A message has no author of its own: who spoke is its type, and the label
-    // is all the reader ever sees of it.
+    // Who spoke: the agent, the person talking to it — the reader, said so —,
+    // the conversation itself for a line nobody wrote.
     getMessageAuthor(entity) {
-      return this.trans(`@vue::author.${entity.type}`);
+      if (this.isOwnMessage(entity)) {
+        return this.trans('@vue::author.user');
+      }
+
+      return entity.author?.label ?? this.trans(`@vue::author.${entity.type}`);
+    },
+
+    getSpeaker(entity) {
+      return entity.author?.kind ?? null;
     },
 
     getMessageContent(entity) {
@@ -73,7 +85,7 @@ export default {
     // The wait for an answer ends on what the agent says, not on what the
     // operator wrote.
     isOwnMessage(entity) {
-      return entity.type === 'user';
+      return this.getSpeaker(entity) === 'user' && entity.type === 'text';
     },
 
     readToolBody(entity) {
@@ -106,7 +118,7 @@ export default {
     },
 
     getConversationKey() {
-      return this.sessionId;
+      return this.conversationId;
     },
 
     // An agent writes back: the reader is told by a sound, unless they turn
@@ -117,10 +129,10 @@ export default {
 
     async postToolResult(call, callId, results) {
       await this.app.getServiceOrFail(ApiService).getClient().post({
-        path: 'conversation-message/create',
+        path: 'agent-conversation/tool-result',
         options: {
           json: {
-            session: this.sessionId,
+            conversation: this.conversationId,
             toolResult: {
               tool: call.name,
               callId,
@@ -136,26 +148,32 @@ export default {
     },
 
     getMessageIcon(entity) {
-      return ICON_BY_TYPE[entity.type] ?? ICON_BY_TYPE.user;
+      return ICON_BY_TYPE[entity.type] ?? ICON_BY_SPEAKER[this.getSpeaker(entity)] ?? ICON_BY_SPEAKER.user;
     },
 
+    // The variants the thread draws: an agent's words as `assistant`, the
+    // person's as `user`, the others by their type.
     getMessageVariant(entity) {
-      return entity.type;
+      if (entity.type !== 'text') {
+        return entity.type;
+      }
+
+      return this.getSpeaker(entity) === 'agent' ? 'assistant' : 'user';
     },
 
     // Who spoke is not sent: the endpoint knows a turn arriving from here was
     // spoken by the operator, and refuses anything else in the payload.
     buildMessageEntity(content) {
       return new ConversationMessage({
-        session: this.sessionId,
+        conversation: this.conversationId,
         body: content
       });
     },
 
     getLiveThread() {
       return {
-        entityName: 'conversation-session',
-        id: this.sessionId,
+        entityName: 'conversation',
+        id: this.conversationId,
         event: EVENT_MESSAGE_CREATED
       };
     }

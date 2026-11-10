@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyAiConversation\Service;
 
 use Generator;
-use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
+use Wexample\SymfonyConversation\Entity\ConversationMessage;
 
 /**
  * Turns a Claude transcript into the plain arrays a message is hydrated from.
@@ -15,11 +15,11 @@ use Wexample\SymfonyAiConversation\Entity\ConversationMessage;
  */
 final readonly class ClaudeTranscriptReader
 {
-    /** The line types that carry something said. */
+    /** The transcript's line types that carry something said, and who said it. */
     public const CARRIED_TYPES = [
-        ConversationMessage::TYPE_ASSISTANT,
-        ConversationMessage::TYPE_SYSTEM,
-        ConversationMessage::TYPE_USER,
+        'assistant' => AgentConversationService::SPEAKER_AGENT,
+        'system' => null,
+        'user' => AgentConversationService::SPEAKER_USER,
     ];
 
     /**
@@ -67,7 +67,7 @@ final readonly class ClaudeTranscriptReader
      */
     private function message(array $line): ?array
     {
-        if (! in_array($line['type'] ?? null, self::CARRIED_TYPES, true)) {
+        if (! array_key_exists($line['type'] ?? '', self::CARRIED_TYPES)) {
             return null;
         }
 
@@ -79,6 +79,7 @@ final readonly class ClaudeTranscriptReader
 
         return [
             MessageHydrator::KEY_TYPE => $this->type($line),
+            MessageHydrator::KEY_SPEAKER => self::CARRIED_TYPES[$line['type']],
             MessageHydrator::KEY_BODY => $body,
             MessageHydrator::KEY_DATE_CREATED => $line['timestamp'] ?? null,
             MessageHydrator::KEY_TOKENS => $this->tokens($line),
@@ -87,13 +88,12 @@ final readonly class ClaudeTranscriptReader
     }
 
     /**
-     * Who the line is from, as the thread draws it.
+     * What the line is, as the thread draws it: words, the conversation's own
+     * line, a tool called.
      *
-     * The transcript files a tool call under the assistant, since that is who
-     * reached for it, but a reader looks at a call and at an answer differently
-     * and the thread has a shape of its own for each. A line mixing the two
-     * stays what the transcript called it: it is mostly speech, and the call it
-     * ends on is a detail of it.
+     * A line of tool calls alone is a tool line, a reader looking at a call
+     * differently than at speech. A line mixing the two stays words: it is
+     * mostly speech, and the call it ends on is a detail of it.
      *
      * @param array<string, mixed> $line
      */
@@ -101,15 +101,17 @@ final readonly class ClaudeTranscriptReader
     {
         $content = $line['message']['content'] ?? null;
 
+        $said = 'system' === $line['type'] ? ConversationMessage::TYPE_SYSTEM : ConversationMessage::TYPE_TEXT;
+
         if (! is_array($content)) {
-            return $line['type'];
+            return $said;
         }
 
         $kinds = array_column($content, 'type');
 
         return in_array('tool_use', $kinds, true) && ! in_array('text', $kinds, true)
             ? ConversationMessage::TYPE_TOOL
-            : $line['type'];
+            : $said;
     }
 
     /**

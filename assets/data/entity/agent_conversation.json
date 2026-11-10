@@ -1,0 +1,77 @@
+{
+    "name": "agent_conversation",
+    "type": "class",
+    "description": "A conversation an engine holds with an agent.",
+    "extends": "Conversation",
+    "discriminator": {
+        "property": "kind",
+        "value": "agent"
+    },
+    "properties": [
+        {
+            "name": "id",
+            "type": "Symfony\\Component\\Uid\\Uuid",
+            "nullable": false
+        },
+        {
+            "name": "title",
+            "type": "string",
+            "nullable": true
+        },
+        {
+            "name": "dateCreated",
+            "type": "DateTimeInterface",
+            "nullable": true
+        },
+        {
+            "name": "dateLastMessage",
+            "type": "DateTimeInterface",
+            "nullable": true
+        },
+        {
+            "name": "participants",
+            "type": "array",
+            "nullable": false
+        },
+        {
+            "name": "me",
+            "type": "string",
+            "nullable": true
+        },
+        {
+            "name": "lastMessage",
+            "type": "string",
+            "nullable": true
+        },
+        {
+            "name": "unread",
+            "type": "int",
+            "nullable": false
+        },
+        {
+            "name": "kind",
+            "type": "string",
+            "nullable": false
+        },
+        {
+            "name": "agentName",
+            "type": "string",
+            "nullable": false
+        },
+        {
+            "name": "agent",
+            "type": "ConversationAgent",
+            "nullable": true
+        },
+        {
+            "name": "model",
+            "type": "ConversationModel",
+            "nullable": true
+        },
+        {
+            "name": "turnCount",
+            "type": "int",
+            "nullable": false
+        }
+    ]
+}
