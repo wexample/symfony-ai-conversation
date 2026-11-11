@@ -1,7 +1,7 @@
 <script>
 import AbstractAgentChat from '@wexample/symfony-design-system/components/collection/chat/abstract-agent-chat/abstract-agent-chat.vue';
 import ApiService from '@wexample/symfony-loader/js/Services/ApiService';
-import ConversationMessage from '@wexample/symfony-conversation/Entity/ConversationMessage';
+import ConversationChatMixin from '@wexample/symfony-conversation/js/Vue/ConversationChatMixin';
 
 const ICON_BY_TYPE = {
   error: 'ph:bold/warning-circle',
@@ -9,83 +9,41 @@ const ICON_BY_TYPE = {
   tool: 'ph:bold/wrench'
 };
 
-// Words, by who wrote them: the agent, or the person talking to it.
-const ICON_BY_SPEAKER = {
-  agent: 'ph:bold/robot',
-  user: 'ph:bold/user'
-};
-
-// What the server publishes on the conversation's topic when a line is written.
-const EVENT_MESSAGE_CREATED = 'message-created';
-
 // A tool turn is one of two things, both json in its body: what the agent
 // called — `name`, `arguments` —, or what the page answered — `tool`,
 // `callId`, `results`. Only the first is the page's to run.
 const TYPE_TOOL = 'tool';
 
+// A conversation with an agent: the same conversation as any other — its
+// lines by their authors, faces and names, read marks, the people named, its
+// sound (ConversationChatMixin) —, and besides, the calls the agent makes to
+// the page's tools, run here and answered (abstract-agent-chat).
 export default {
   extends: AbstractAgentChat,
 
+  mixins: [ConversationChatMixin],
+
   template: '#vue-template-wexample-symfony-ai-conversation-bundle-vue-collection-chat-message-chat',
 
-  props: {
-    // A thread is the thread of one conversation, and which one is decided by
-    // whoever places the component.
-    conversationId: {
-      type: String,
-      required: true
-    }
-  },
-
   methods: {
-    getEntityClass() {
-      return ConversationMessage;
-    },
-
-    getEntitiesFetchParams() {
-      return {
-        query: {
-          conversation: this.conversationId
-        }
-      };
-    },
-
-    getPageLength() {
-      return 20;
-    },
-
-    startsAtLastPage() {
-      return true;
-    },
-
-    // What the operator writes is answered by an agent, in the background:
-    // the thread shows the answer is coming.
-    expectsReply() {
-      return true;
-    },
-
-    // Who spoke: the agent, the person talking to it — the reader, said so —,
-    // the conversation itself for a line nobody wrote.
-    getMessageAuthor(entity) {
-      if (this.isOwnMessage(entity)) {
-        return this.trans('@vue::author.user');
-      }
-
-      return entity.author?.label ?? this.trans(`@vue::author.${entity.type}`);
-    },
-
-    getSpeaker(entity) {
-      return entity.author?.kind ?? null;
-    },
-
-    getMessageContent(entity) {
-      return entity.body ?? '';
-    },
-
-    // The wait for an answer ends on what the agent says, not on what the
-    // operator wrote.
+    // The reader's words, and only them: the wait for an answer ends on what
+    // the agent says, not on a call's answer sent from here.
     isOwnMessage(entity) {
-      return this.getSpeaker(entity) === 'user' && entity.type === 'text';
+      return ConversationChatMixin.methods.isOwnMessage.call(this, entity) && entity.type === 'text';
+    },
+
+    // What the reader did in the page goes to the agent with the call answers
+    // (postToolResult), not with what they write: taken here, it is not sent
+    // twice.
+    async postMessage(content, files = [], options = {}) {
+      this.takeUserEvents();
+
+      await ConversationChatMixin.methods.postMessage.call(this, content, files, options);
+    },
+
+    // A line nobody wrote — an error, a call — by what it is.
+    getMessageIcon(entity) {
+      return ICON_BY_TYPE[entity.type] ?? 'ph:bold/user';
     },
 
     readToolBody(entity) {
@@ -117,10 +75,6 @@ export default {
       return entity.id ?? null;
     },
 
-    getConversationKey() {
-      return this.conversationId;
-    },
-
     async postToolResult(call, callId, results) {
       await this.app.getServiceOrFail(ApiService).getClient().post({
         path: 'agent-conversation/tool-result',
@@ -135,41 +89,6 @@ export default {
           }
         }
       });
-    },
-
-    getMessageDate(entity) {
-      return entity.dateCreated ?? null;
-    },
-
-    getMessageIcon(entity) {
-      return ICON_BY_TYPE[entity.type] ?? ICON_BY_SPEAKER[this.getSpeaker(entity)] ?? ICON_BY_SPEAKER.user;
-    },
-
-    // The variants the thread draws: an agent's words as `assistant`, the
-    // person's as `user`, the others by their type.
-    getMessageVariant(entity) {
-      if (entity.type !== 'text') {
-        return entity.type;
-      }
-
-      return this.getSpeaker(entity) === 'agent' ? 'assistant' : 'user';
-    },
-
-    // Who spoke is not sent: the endpoint knows a turn arriving from here was
-    // spoken by the operator, and refuses anything else in the payload.
-    buildMessageEntity(content) {
-      return new ConversationMessage({
-        conversation: this.conversationId,
-        body: content
-      });
-    },
-
-    getLiveThread() {
-      return {
-        entityName: 'conversation',
-        id: this.conversationId,
-        event: EVENT_MESSAGE_CREATED
-      };
     }
   }
 };

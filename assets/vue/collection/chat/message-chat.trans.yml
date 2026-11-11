@@ -1,7 +1,6 @@
 en:
   author:
-    assistant: Assistant
-    error: Error
-    system: System
-    tool: Tool
-    user: You
+    system: Conversation
+fr:
+  author:
+    system: Conversation

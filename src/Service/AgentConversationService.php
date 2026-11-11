@@ -23,6 +23,9 @@ final readonly class AgentConversationService
     /** A line a person said to it. */
     final public const string SPEAKER_USER = 'user';
 
+    /** The chat a conversation with an agent is drawn by: the people's, running the agent's calls besides. */
+    final public const string CHAT_COMPONENT = '@WexampleSymfonyAiConversationBundle/vue/collection/chat/message-chat';
+
     public function __construct(
         private EntityManagerInterface $entityManager,
     ) {

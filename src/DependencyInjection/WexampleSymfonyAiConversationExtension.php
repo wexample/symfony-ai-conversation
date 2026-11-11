@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyAiConversation\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Wexample\SymfonyAiConversation\Interface\AgentIdentityProviderInterface;
 use Wexample\SymfonyHelpers\DependencyInjection\AbstractWexampleSymfonyExtension;
 
 class WexampleSymfonyAiConversationExtension extends AbstractWexampleSymfonyExtension
@@ -11,6 +12,9 @@ class WexampleSymfonyAiConversationExtension extends AbstractWexampleSymfonyExte
         array $configs,
         ContainerBuilder $container
     ): void {
+        $container->registerForAutoconfiguration(AgentIdentityProviderInterface::class)
+            ->addTag(AgentIdentityProviderInterface::TAG);
+
         $this->loadConfig(
             __DIR__,
             $container
