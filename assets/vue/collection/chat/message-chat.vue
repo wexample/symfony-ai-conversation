@@ -121,12 +121,6 @@ export default {
       return this.conversationId;
     },
 
-    // An agent writes back: the reader is told by a sound, unless they turn
-    // it off.
-    hasSound() {
-      return true;
-    },
-
     async postToolResult(call, callId, results) {
       await this.app.getServiceOrFail(ApiService).getClient().post({
         path: 'agent-conversation/tool-result',
