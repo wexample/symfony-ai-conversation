@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyAiConversation\Service;
 
 use Generator;
+use RuntimeException;
 use Wexample\SymfonyConversation\Entity\ConversationMessage;
 
 /**
@@ -42,22 +43,38 @@ final readonly class ClaudeTranscriptReader
      * One line makes at most one message, since the identifier the provider
      * gives the line is what tells a transcript read twice from two. A line
      * that says nothing — a tool result, a thought, an empty turn — makes none.
+     * Neither does a line that is no json object: a blank line, or the last
+     * one while the provider is still writing it.
      *
      * @return Generator<array<string, mixed>>
      */
     public function read(string $path): Generator
     {
-        $handle = fopen($path, 'r');
+        $handle = is_readable($path) ? fopen($path, 'r') : false;
 
-        while (false !== $line = fgets($handle)) {
-            $values = $this->message(json_decode($line, true));
-
-            if (null !== $values) {
-                yield $values;
-            }
+        if (false === $handle) {
+            throw new RuntimeException(sprintf('The transcript "%s" cannot be read.', $path));
         }
 
-        fclose($handle);
+        // Closed however the reading ends, a caller leaving the loop early
+        // included.
+        try {
+            while (false !== $line = fgets($handle)) {
+                $decoded = json_decode($line, true);
+
+                if (! is_array($decoded)) {
+                    continue;
+                }
+
+                $values = $this->message($decoded);
+
+                if (null !== $values) {
+                    yield $values;
+                }
+            }
+        } finally {
+            fclose($handle);
+        }
     }
 
     /**

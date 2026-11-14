@@ -8,6 +8,11 @@
       "Wexample\\SymfonyAiConversation\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Wexample\\SymfonyAiConversation\\Tests\\": "tests/"
+    }
+  },
   "description": "Conversations with agents, on symfony-conversation: the agent taking part, agents and models as entities, Claude's transcripts, the tools an agent calls",
   "authors": [
     {
@@ -29,6 +34,18 @@
     "wexample/symfony-live": ">=5.8.0",
     "wexample/symfony-pseudocode": ">=4.0.2"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^13"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../*",
+      "options": {
+        "symlink": true
+      }
+    }
+  ],
   "extra": {
     "install": {
       "bundle_env": "all"
