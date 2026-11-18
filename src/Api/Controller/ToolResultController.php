@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyAiConversation\Api\Controller;
 
-use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,6 +9,7 @@ use Symfony\Component\Uid\Uuid;
 use Wexample\SymfonyAi\Service\AgentBackToolsService;
 use Wexample\SymfonyAiConversation\Api\Dto\Entity\AgentConversation\ToolResultDto;
 use Wexample\SymfonyAiConversation\EventListener\AgentBackToolListener;
+use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Wexample\SymfonyApi\Api\Attribute\ValidateRequestContent;
 use Wexample\SymfonyApi\Api\Class\ApiResponse;
 use Wexample\SymfonyApi\Api\Controller\AbstractApiController;
