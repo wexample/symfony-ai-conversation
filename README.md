@@ -1,6 +1,6 @@
 # symfony-ai-conversation
 
-Version: 5.0.3
+Version: 5.0.4
 
 Conversations with agents, on symfony-conversation: the agent taking part, agents and models as entities, Claude's transcripts, the tools an agent calls
 
