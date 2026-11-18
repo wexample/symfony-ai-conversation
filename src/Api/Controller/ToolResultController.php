@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyAiConversation\Api\Controller;
 
+use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -25,6 +26,7 @@ use Wexample\SymfonyHelpers\Voter\AbstractEntityVoter;
  * the person answering it — once per call, however many pages ran it.
  */
 #[Route(path: '_api/agent-conversation/', name: 'api_agent_conversation_')]
+#[ApiAccess(ApiAccess::CONTROLLER, "the conversation's voter")]
 class ToolResultController extends AbstractApiController
 {
     /** What names the answer to a tool call, by the call: one per call. */
