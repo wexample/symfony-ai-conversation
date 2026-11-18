@@ -9,3 +9,223 @@ en:
 
   success:
     message: Session saved
+
+fr:
+  field:
+    title:
+      label: Nom
+      help: 'Comment appeler cette conversation pour la distinguer des autres.'
+  action:
+    submit: Enregistrer
+  success:
+    message: 'Session enregistrée'
+
+zh:
+  field:
+    title:
+      label: 名称
+      help: 如何称呼这个对话，以便与其他对话区分开来。
+  action:
+    submit: 保存
+  success:
+    message: 会话已保存
+
+ar:
+  field:
+    title:
+      label: الاسم
+      help: 'كيف تريد أن تسمي هذه المحادثة، بحيث يمكن تمييزها عن الآخرين.'
+  action:
+    submit: حفظ
+  success:
+    message: 'تم حفظ الجلسة'
+
+hi:
+  field:
+    title:
+      label: नाम
+      help: 'इस बातचीत को क्या कहें, ताकि इसे दूसरों से बताया जा सके।'
+  action:
+    submit: सहेजें
+  success:
+    message: 'सत्र सहेजा गया'
+
+he:
+  field:
+    title:
+      label: שם
+      help: 'איך לקרוא לשיחה הזו, כך שניתן יהיה לספר עליה לאחרים.'
+  action:
+    submit: שמור
+  success:
+    message: 'הישיבה נשמרה'
+
+fa:
+  field:
+    title:
+      label: نام
+      help: 'این گفتگو را چگونه نامگذاری کنیم تا از دیگران متمایز شود.'
+  action:
+    submit: ذخیره
+  success:
+    message: 'جلسه ذخیره شد'
+
+ur:
+  field:
+    title:
+      label: نام
+      help: 'اس گفتگو کو کیا کہا جائے، تاکہ اسے دوسروں سے الگ کیا جا سکے۔'
+  action:
+    submit: 'محفوظ کریں'
+  success:
+    message: 'سیشن محفوظ کر لیا گیا'
+
+ja:
+  field:
+    title:
+      label: 名前
+      help: この会話を他の人に伝えるための名前は何ですか。
+  action:
+    submit: 保存
+  success:
+    message: セッションが保存されました
+
+ko:
+  field:
+    title:
+      label: 이름
+      help: '이 대화를 어떻게 부를지, 다른 사람들과 구별할 수 있도록.'
+  action:
+    submit: 저장
+  success:
+    message: '세션이 저장되었습니다.'
+
+bn:
+  field:
+    title:
+      label: নাম
+      help: 'এই কথোপকথনকে কী বলবেন, যাতে এটি অন্যদের থেকে আলাদা করে বলা যায়।'
+  action:
+    submit: 'সংরক্ষণ করুন'
+  success:
+    message: 'সেশন সংরক্ষিত'
+
+th:
+  field:
+    title:
+      label: ชื่อ
+      help: เรียกการสนทนานี้ว่าอย่างไรเพื่อให้แตกต่างจากการสนทนาอื่นๆ
+  action:
+    submit: บันทึก
+  success:
+    message: เซสชันถูกบันทึกเรียบร้อยแล้ว
+
+de:
+  field:
+    title:
+      label: Name
+      help: 'Wie soll dieses Gespräch genannt werden, damit es sich von den anderen unterscheidet.'
+  action:
+    submit: Speichern
+  success:
+    message: 'Sitzung gespeichert'
+
+fi:
+  field:
+    title:
+      label: Nimi
+      help: 'Mikä on tämän keskustelun nimi, jotta se voidaan erottaa muista.'
+  action:
+    submit: Tallenna
+  success:
+    message: 'Istunto tallennettu'
+
+ru:
+  field:
+    title:
+      label: Название
+      help: 'Как назвать этот разговор, чтобы его можно было отличить от других.'
+  action:
+    submit: Сохранить
+  success:
+    message: 'Сессия сохранена'
+
+pl:
+  field:
+    title:
+      label: Nazwa
+      help: 'Jak nazwać tę rozmowę, aby można ją było odróżnić od innych.'
+  action:
+    submit: Zapisz
+  success:
+    message: 'Sesja zapisana'
+
+es:
+  field:
+    title:
+      label: Nombre
+      help: 'Cómo llamar a esta conversación, para que se pueda distinguir de las demás.'
+  action:
+    submit: Guardar
+  success:
+    message: 'Sesión guardada'
+
+it:
+  field:
+    title:
+      label: Nome
+      help: 'Come chiamare questa conversazione, in modo che possa essere distinta dalle altre.'
+  action:
+    submit: Salva
+  success:
+    message: 'Sessione salvata'
+
+pt_BR:
+  field:
+    title:
+      label: Nome
+      help: 'Como chamar esta conversa, para que possa ser contada das outras.'
+  action:
+    submit: Salvar
+  success:
+    message: 'Sessão salva'
+
+tr:
+  field:
+    title:
+      label: İsim
+      help: 'Bu konuşmaya ne ad vereceksiniz, böylece diğerlerinden ayırt edilebilir.'
+  action:
+    submit: Kaydet
+  success:
+    message: 'Oturum kaydedildi'
+
+vi:
+  field:
+    title:
+      label: Tên
+      help: 'Gọi tên cuộc trò chuyện này, để nó có thể được phân biệt với những cuộc khác.'
+  action:
+    submit: Lưu
+  success:
+    message: 'Phiên đã được lưu'
+
+id:
+  field:
+    title:
+      label: Nama
+      help: 'Apa yang harus disebut percakapan ini, agar dapat diceritakan dari yang lainnya.'
+  action:
+    submit: Simpan
+  success:
+    message: 'Sesi disimpan'
+
+nl:
+  field:
+    title:
+      label: Naam
+      help: 'Hoe deze conversatie te noemen, zodat deze van de anderen kan worden onderscheiden.'
+  action:
+    submit: Opslaan
+  success:
+    message: 'Sessie opgeslagen'

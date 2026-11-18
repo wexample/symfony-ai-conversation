@@ -3,3 +3,135 @@ en:
   field:
     maker: Maker
     api_id: API id
+
+fr:
+  page_title: Modèle
+  field:
+    maker: Fabricant
+    api_id: 'Identifiant API'
+
+zh:
+  page_title: 模型
+  field:
+    maker: 制造商
+    api_id: 'API ID'
+
+ar:
+  page_title: نموذج
+  field:
+    maker: الصانع
+    api_id: 'معرّف API'
+
+hi:
+  page_title: मॉडल
+  field:
+    maker: निर्माता
+    api_id: 'एपीआई आईडी'
+
+he:
+  page_title: מודל
+  field:
+    maker: יוצר
+    api_id: 'מזהה API'
+
+fa:
+  page_title: مدل
+  field:
+    maker: سازنده
+    api_id: 'شناسه API'
+
+ur:
+  page_title: ماڈل
+  field:
+    maker: 'بنانے والا'
+    api_id: 'API شناخت'
+
+ja:
+  page_title: モデル
+  field:
+    maker: メーカー
+    api_id: 'API ID'
+
+ko:
+  page_title: 모델
+  field:
+    maker: 제작자
+    api_id: 'API 아이디'
+
+bn:
+  page_title: মডেল
+  field:
+    maker: মেকার
+    api_id: 'এপিআই আইডি'
+
+th:
+  page_title: โมเดล
+  field:
+    maker: ผู้ผลิต
+    api_id: 'รหัส API'
+
+de:
+  page_title: Modell
+  field:
+    maker: Hersteller
+    api_id: API-ID
+
+fi:
+  page_title: Malli
+  field:
+    maker: Valmistaja
+    api_id: API-tunnus
+
+ru:
+  page_title: Модель
+  field:
+    maker: Производитель
+    api_id: 'API id'
+
+pl:
+  page_title: Model
+  field:
+    maker: Producent
+    api_id: 'Id API'
+
+es:
+  page_title: Modelo
+  field:
+    maker: Fabricante
+    api_id: 'ID de API'
+
+it:
+  page_title: Modello
+  field:
+    maker: Produttore
+    api_id: 'ID API'
+
+pt_BR:
+  page_title: Modelo
+  field:
+    maker: Fabricante
+    api_id: 'ID da API'
+
+tr:
+  page_title: Model
+  field:
+    maker: Yapımcı
+    api_id: 'API kimliği'
+
+vi:
+  page_title: 'Mô hình'
+  field:
+    maker: 'Nhà sản xuất'
+    api_id: 'Mã API'
+
+id:
+  page_title: Model
+  field:
+    maker: Pembuat
+    api_id: 'ID API'
+
+nl:
+  page_title: Model
+  field:
+    maker: Maker
+    api_id: API-id

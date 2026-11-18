@@ -1,3 +1,91 @@
 en:
   page_title: Edit session
   content_title: Session
+
+fr:
+  page_title: 'Modifier la session'
+  content_title: Session
+
+zh:
+  page_title: 编辑会话
+  content_title: 会话
+
+ar:
+  page_title: 'تحرير الجلسة'
+  content_title: الجلسة
+
+hi:
+  page_title: 'सत्र संपादित करें'
+  content_title: सत्र
+
+he:
+  page_title: 'עריכת מפגש'
+  content_title: מפגש
+
+fa:
+  page_title: 'ویرایش جلسه'
+  content_title: جلسه
+
+ur:
+  page_title: 'سیشن میں ترمیم کریں'
+  content_title: سیشن
+
+ja:
+  page_title: セッションの編集
+  content_title: セッション
+
+ko:
+  page_title: '세션 편집'
+  content_title: 세션
+
+bn:
+  page_title: 'সেশন সম্পাদনা করুন'
+  content_title: সেশন
+
+th:
+  page_title: แก้ไขเซสชัน
+  content_title: เซสชัน
+
+de:
+  page_title: 'Sitzung bearbeiten'
+  content_title: Sitzung
+
+fi:
+  page_title: 'Muokkaa istuntoa'
+  content_title: Istunto
+
+ru:
+  page_title: 'Редактировать сессию'
+  content_title: Сессия
+
+pl:
+  page_title: 'Edytuj sesję'
+  content_title: Sesja
+
+es:
+  page_title: 'Editar sesión'
+  content_title: Sesión
+
+it:
+  page_title: 'Modifica sessione'
+  content_title: Sessione
+
+pt_BR:
+  page_title: 'Editar sessão'
+  content_title: Sessão
+
+tr:
+  page_title: 'Oturumu Düzenle'
+  content_title: Oturum
+
+vi:
+  page_title: 'Chỉnh sửa phiên'
+  content_title: Phiên
+
+id:
+  page_title: 'Edit sesi'
+  content_title: Sesi
+
+nl:
+  page_title: 'Bewerk sessie'
+  content_title: Sessie

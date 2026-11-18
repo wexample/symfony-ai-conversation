@@ -5,3 +5,179 @@ en:
     maker: Maker
     name: Name
     api_id: API id
+
+fr:
+  page_title: Modèles
+  empty: 'Aucun modèle dans le catalogue.'
+  column:
+    maker: Fabricant
+    name: Nom
+    api_id: 'ID API'
+
+zh:
+  page_title: 模型
+  empty: 目录中没有模型。
+  column:
+    maker: 制造商
+    name: 名称
+    api_id: 'API id'
+
+ar:
+  page_title: النماذج
+  empty: 'لا يوجد نموذج في الكتالوج.'
+  column:
+    maker: الصانع
+    name: الاسم
+    api_id: 'معرف API'
+
+hi:
+  page_title: मॉडल्स
+  empty: 'कैटलॉग में कोई मॉडल नहीं है।'
+  column:
+    maker: निर्माता
+    name: नाम
+    api_id: 'API आईडी'
+
+he:
+  page_title: מודלים
+  empty: 'אין מודל בקטלוג.'
+  column:
+    maker: יצרן
+    name: שם
+    api_id: 'מזהה API'
+
+fa:
+  page_title: مدل‌ها
+  empty: 'مدلی در کاتالوگ موجود نیست.'
+  column:
+    maker: سازنده
+    name: نام
+    api_id: 'شناسه API'
+
+ur:
+  page_title: ماڈلز
+  empty: 'کیٹلاگ میں کوئی ماڈل نہیں ہے۔'
+  column:
+    maker: 'تیار کنندہ'
+    name: نام
+    api_id: 'API شناخت'
+
+ja:
+  page_title: モデル
+  empty: カタログにはモデルがありません。
+  column:
+    maker: メーカー
+    name: 名前
+    api_id: 'API ID'
+
+ko:
+  page_title: 모델
+  empty: '카탈로그에 모델이 없습니다.'
+  column:
+    maker: 제작자
+    name: 이름
+    api_id: 'API ID'
+
+bn:
+  page_title: মডেলসমূহ
+  empty: 'ক্যাটালগে কোন মডেল নেই।'
+  column:
+    maker: নির্মাতা
+    name: নাম
+    api_id: 'এপিআই আইডি'
+
+th:
+  page_title: โมเดล
+  empty: ไม่มีโมเดลในแคตตาล็อก
+  column:
+    maker: ผู้ผลิต
+    name: ชื่อ
+    api_id: 'รหัส API'
+
+de:
+  page_title: Modelle
+  empty: 'Kein Modell im Katalog.'
+  column:
+    maker: Hersteller
+    name: Name
+    api_id: API-ID
+
+fi:
+  page_title: Mallit
+  empty: 'Ei malleja luettelossa.'
+  column:
+    maker: Valmistaja
+    name: Nimi
+    api_id: API-tunnus
+
+ru:
+  page_title: Модели
+  empty: 'Нет моделей в каталоге.'
+  column:
+    maker: Производитель
+    name: Название
+    api_id: 'API id'
+
+pl:
+  page_title: Modele
+  empty: 'Brak modelu w katalogu.'
+  column:
+    maker: Producent
+    name: Nazwa
+    api_id: 'Id API'
+
+es:
+  page_title: Modelos
+  empty: 'No hay modelo en el catálogo.'
+  column:
+    maker: Fabricante
+    name: Nombre
+    api_id: 'ID de API'
+
+it:
+  page_title: Modelli
+  empty: 'Nessun modello nel catalogo.'
+  column:
+    maker: Produttore
+    name: Nome
+    api_id: 'ID API'
+
+pt_BR:
+  page_title: Modelos
+  empty: 'Nenhum modelo no catálogo.'
+  column:
+    maker: Fabricante
+    name: Nome
+    api_id: 'ID da API'
+
+tr:
+  page_title: Modeller
+  empty: 'Katalogda model yok.'
+  column:
+    maker: Üretici
+    name: İsim
+    api_id: 'API kimliği'
+
+vi:
+  page_title: 'Mô hình'
+  empty: 'Không có mô hình nào trong danh mục.'
+  column:
+    maker: 'Nhà sản xuất'
+    name: Tên
+    api_id: 'ID API'
+
+id:
+  page_title: Model
+  empty: 'Tidak ada model di katalog.'
+  column:
+    maker: Pembuat
+    name: Nama
+    api_id: 'ID API'
+
+nl:
+  page_title: Modellen
+  empty: 'Geen model in de catalogus.'
+  column:
+    maker: Maker
+    name: Naam
+    api_id: API-id
