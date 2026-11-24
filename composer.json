@@ -1,6 +1,6 @@
 {
   "name": "wexample/symfony-ai-conversation",
-  "version": "6.0.7",
+  "version": "6.0.8",
   "type": "library",
   "license": "MIT",
   "autoload": {
@@ -28,7 +28,7 @@
     "wexample/symfony-ai": ">=6.1.0",
     "wexample/symfony-api": ">=24.0.0",
     "wexample/symfony-conversation": ">=7.0.0",
-    "wexample/symfony-design-system": ">=52.0.0",
+    "wexample/symfony-design-system": ">=53.0.0",
     "wexample/symfony-forms": ">=19.0.0",
     "wexample/symfony-helpers": ">=19.3.0",
     "wexample/symfony-live": ">=5.8.0",
