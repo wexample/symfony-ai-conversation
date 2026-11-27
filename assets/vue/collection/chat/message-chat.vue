@@ -2,6 +2,7 @@
 import AbstractAgentChat from '@wexample/symfony-design-system/components/collection/chat/abstract-agent-chat/abstract-agent-chat.vue';
 import ApiService from '@wexample/symfony-loader/js/Services/ApiService';
 import ConversationChatMixin from '@wexample/symfony-conversation/js/Vue/ConversationChatMixin';
+import { EVENT_AGENT_STOP } from '@wexample/symfony-loader/js/Services/AgentToolsService';
 
 const ICON_BY_TYPE = {
   error: 'ph:bold/warning-circle',
@@ -25,7 +26,31 @@ export default {
 
   template: '#vue-template-wexample-symfony-ai-conversation-bundle-vue-collection-chat-message-chat',
 
+  mounted() {
+    document.addEventListener(EVENT_AGENT_STOP, this.onAgentStop);
+  },
+
+  beforeUnmount() {
+    document.removeEventListener(EVENT_AGENT_STOP, this.onAgentStop);
+  },
+
   methods: {
+    // The user stopped the agent (its presence's Stop): the wait for its
+    // answer ends here, and whatever drives it cuts its turn short — the
+    // page already runs none of its calls.
+    async onAgentStop() {
+      this.awaitingReply = false;
+
+      if (!this.conversationId) {
+        return;
+      }
+
+      await this.app.getServiceOrFail(ApiService).getClient().post({
+        path: 'agent-conversation/stop',
+        options: { json: { conversation: this.conversationId } }
+      });
+    },
+
     // The reader's words, and only them: the wait for an answer ends on what
     // the agent says, not on a call's answer sent from here.
     isOwnMessage(entity) {
